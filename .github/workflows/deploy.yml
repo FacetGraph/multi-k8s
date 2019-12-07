@@ -4,10 +4,12 @@ on:
       - master
 
 jobs:
-  build-and-test:
+  deploy:
     runs-on: ubuntu-18.04
 
     steps:
     - uses: actions/checkout@v1
     - run: ./deploy.sh
+      env:
+        DOCKERHUB_PASS: '${{ secrets.DOCKERHUB_PASS }}'
 
