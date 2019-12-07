@@ -12,6 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - run: docker build -t matthoyle/react-test -f ./client/Dockerfile.dev
+    - run: 'docker build -t matthoyle/react-test -f ./client/Dockerfile.dev'
 
-    - run: docker run matthoyle/react-test npm test -- --coverage
+    - run: 'docker run matthoyle/react-test npm test -- --coverage'
