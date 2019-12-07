@@ -1,0 +1,17 @@
+name: k8s
+
+on:
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - run: docker build -t matthoyle/react-test -f ./client/Dockerfile.dev ./client
+
+    - run: docker run matthoyle/react-test npm test -- --coverage
