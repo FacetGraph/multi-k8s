@@ -17,7 +17,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
-    - run: echo '${{ secrets.DOCKERHUB_PASS }}' | docker login --username primarydeploy --password-stdin
+    - run: echo '${{ secrets.DOCKERHUB_PASS }}' | docker login --username matthoyle --password-stdin
 
     - run: aws eks --region us-east-1 update-kubeconfig --name multi-cluster
 
