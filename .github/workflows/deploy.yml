@@ -9,8 +9,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - run: |
-        export '${{ secrets.DOCKERHUB_PASS }}'
-        export '${{ secrets.AWS_ACCESS_KEY_ID }}'
-        export '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
-        ./deploy.sh
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - run: echo '${{ secrets.DOCKERHUB_PASS }}' | docker login --username primarydeploy --password-stdin
+
+    - run: aws eks --region us-east-1 update-kubeconfig --name multi-cluster
+
+    - run: ./deploy.sh
